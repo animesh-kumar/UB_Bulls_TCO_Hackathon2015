@@ -6,23 +6,29 @@
 //  Copyright (c) 2015 Mani Kishore Chitrala. All rights reserved.
 //
 
-#import <Parse/Parse.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+
+#import <Spotify/Spotify.h>
+#import <GoogleMaps/GoogleMaps.h>
+
 #import "AppDelegate.h"
+#import "GlobalData.h"
 
 @interface AppDelegate ()
 
+@property (nonatomic, strong) SPTSession *session;
+@property (nonatomic, strong) SPTAudioStreamingController *player;
 @end
 
-@implementation AppDelegate
 
+@implementation AppDelegate
+@synthesize session = _session;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [Parse setApplicationId:@"yA7hF6Z6sBMGs2MYWtCWq28yKIynaYsHo0txnwWJ" clientKey:@"njGH2IRNKVYF7ovBSkRHhn3TTkKKLaT9VsCamBWL"];
-    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
+    [[SPTAuth defaultInstance] setClientID:@"17ff8b2e91e641b489c909d0d41806fe"];
+    [[SPTAuth defaultInstance] setRedirectURL:[NSURL URLWithString:@"callback://"]];
+    [[SPTAuth defaultInstance] setRequestedScopes:@[SPTAuthPlaylistReadPrivateScope,SPTAuthUserLibraryReadScope,SPTAuthUserFollowReadScope]];
+    [GMSServices provideAPIKey:@"AIzaSyDC4qjmzfYi0GSb0JnmYDC1XN0S7E6DokU"];
     return YES;
 }
 
@@ -44,18 +50,27 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                          openURL:url
-                                                sourceApplication:sourceApplication
-                                                       annotation:annotation];
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    [FBSDKAppEvents activateApp];
+-(BOOL)application:(UIApplication *)application
+           openURL:(NSURL *)url
+ sourceApplication:(NSString *)sourceApplication
+        annotation:(id)annotation {
+    if ([[SPTAuth defaultInstance] canHandleURL:url]) {
+        [[SPTAuth defaultInstance] handleAuthCallbackWithTriggeredAuthURL:url callback:^(NSError *error, SPTSession *session) {
+            [GlobalData sharedGlobalData].session = session;
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"showMap" object:nil];
+            if (error != nil) {
+                NSLog(@"*** Auth error: %@", error);
+                return;
+            }
+        }];
+        return YES;
+    }
+    
+    return YES;
 }
 
 @end

@@ -16,26 +16,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vtg-lE-W1I">
-                                <rect key="frame" x="30" y="411" width="261" height="48"/>
-                                <state key="normal" image="Sign-in-With-Facebook.png">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vtg-lE-W1I">
+                                <rect key="frame" x="30" y="259" width="261" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="YKz-Dt-2b0"/>
+                                    <constraint firstAttribute="width" constant="261" id="na7-7e-cpa"/>
+                                </constraints>
+                                <state key="normal" title="  Sign in with Spotify" image="Spotify.png">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginWithFacebook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DoS-wa-WLc"/>
+                                    <action selector="loginWithSpotify:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hbB-Yy-gK4"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="Vtg-lE-W1I" secondAttribute="centerY" id="SdH-eV-UrN"/>
+                            <constraint firstAttribute="centerX" secondItem="Vtg-lE-W1I" secondAttribute="centerX" constant="-0.5" id="eEn-pi-LFi"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="192" y="338"/>
+            <point key="canvasLocation" x="123" y="340"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="emc-u4-Ds2">
+            <objects>
+                <viewController id="yLS-sG-BYA" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WzQ-fC-Xfm"/>
+                        <viewControllerLayoutGuide type="bottom" id="fvu-tq-gSt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OM4-q2-8cc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PzS-ad-pGp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="458" y="339"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Sign-in-With-Facebook.png" width="521" height="93"/>
+        <image name="Spotify.png" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
